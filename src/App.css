@@ -1206,6 +1206,7 @@ input:focus {
   align-items: center;
   width: 100%;
   max-width: 700px;
+  animation: fadeIn 0.5s ease-out;
 }
 
 .vocabulary-hero {
@@ -1213,7 +1214,7 @@ input:focus {
   align-items: center;
   gap: 0.75rem;
   margin-bottom: 0.5rem;
-  animation: fadeIn 0.5s ease-out;
+  animation: fadeIn 0.5s ease-out both;
 }
 
 .vocabulary-icon {
