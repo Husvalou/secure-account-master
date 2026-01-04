@@ -9,7 +9,7 @@ import './App.css';
 
 function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/secure-account-master">
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<HomePage />} />

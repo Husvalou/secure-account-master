@@ -1221,6 +1221,13 @@ input:focus {
   animation: pulse 2s ease-in-out infinite;
 }
 
+.vocabulary-icon-svg {
+  width: 2rem;
+  height: 2rem;
+  color: var(--text-primary);
+  animation: pulse 2s ease-in-out infinite;
+}
+
 .vocabulary-title {
   font-size: 0.85rem;
   color: var(--text-muted);
