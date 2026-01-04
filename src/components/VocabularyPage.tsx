@@ -1,37 +1,7 @@
 import { Header } from './Layout';
 import { vocabularyTerms } from '../data/vocabulary';
 
-function BookWithMagnifierIcon() {
-  return (
-    <svg 
-      className="vocabulary-icon-svg" 
-      viewBox="0 0 24 24" 
-      fill="currentColor" 
-      stroke="currentColor" 
-      strokeWidth="1.5" 
-      strokeLinecap="round" 
-      strokeLinejoin="round"
-    >
-      {/* Book - left page */}
-      <path d="M3 5h9v14H3z" fill="none" />
-      <path d="M3 5h9v14H3z" stroke="currentColor" />
-      
-      {/* Book - right page */}
-      <path d="M12 5h9v14h-9z" fill="none" />
-      <path d="M12 5h9v14h-9z" stroke="currentColor" />
-      
-      {/* Book binding/spine (center line) */}
-      <line x1="12" y1="5" x2="12" y2="19" strokeWidth="1.5" />
-      
-      {/* Magnifying glass circle */}
-      <circle cx="12" cy="12" r="4.5" fill="currentColor" />
-      <circle cx="12" cy="12" r="4.5" fill="none" stroke="currentColor" strokeWidth="0.5" />
-      
-      {/* Magnifying glass handle */}
-      <line x1="16" y1="16" x2="19" y2="19" strokeWidth="2.5" strokeLinecap="round" />
-    </svg>
-  );
-}
+const base = import.meta.env.BASE_URL;
 
 export function VocabularyPage() {
   const categories = Array.from(new Set(vocabularyTerms.map(term => term.category)));
@@ -39,7 +9,11 @@ export function VocabularyPage() {
   return (
     <div className="vocabulary-page">
       <div className="vocabulary-hero">
-        <BookWithMagnifierIcon />
+        <img 
+          src={`${base}icons/vocab.png`}
+          alt="Vocabulary Icon"
+          className="vocabulary-icon"
+        />
         <span className="vocabulary-title">Technical Glossary</span>
       </div>
       

@@ -2,42 +2,159 @@ import { useEffect, useState, useCallback } from 'react';
 import { useParams, useSearchParams, useNavigate } from 'react-router-dom';
 import { Header } from './Layout';
 import { guides } from '../data/guides';
+import { vocabularyTerms } from '../data/vocabulary';
+
+function VocabularyTooltip({ term, definition }: { term: string; definition: string }) {
+  const [isVisible, setIsVisible] = useState(false);
+
+  return (
+    <span 
+      className="vocab-term"
+      onMouseEnter={() => setIsVisible(true)}
+      onMouseLeave={() => setIsVisible(false)}
+    >
+      {term}
+      <span className="vocab-icon">🔍</span>
+      {isVisible && (
+        <div className="vocab-tooltip">
+          <div className="vocab-tooltip-title">{term}</div>
+          <div className="vocab-tooltip-definition">{definition}</div>
+        </div>
+      )}
+    </span>
+  );
+}
 
 function parseMarkdownLinks(text: string): React.ReactNode {
+  // Create a map of vocabulary terms for quick lookup (by main term name)
+  const vocabMap = new Map<string, typeof vocabularyTerms[0]>();
+  vocabularyTerms.forEach(term => {
+    const mainTerm = term.term.split('(')[0].trim().toLowerCase();
+    vocabMap.set(mainTerm.toLowerCase(), term);
+    vocabMap.set(term.term.toLowerCase(), term);
+  });
+
+  // First, parse markdown links and store text segments
   const linkRegex = /\[([^\]]+)\]\(([^)]+)\)/g;
-  const parts: React.ReactNode[] = [];
+  const segments: Array<{ type: 'text' | 'link'; content: string; url?: string }> = [];
   let lastIndex = 0;
   let match;
+  let keyCounter = 0;
 
   while ((match = linkRegex.exec(text)) !== null) {
     if (match.index > lastIndex) {
-      parts.push(text.substring(lastIndex, match.index));
+      segments.push({ type: 'text', content: text.substring(lastIndex, match.index) });
     }
-
     const [, linkText, url] = match;
-    const isExternal = url.startsWith('http');
-
-    parts.push(
-      <a
-        key={match.index}
-        href={url}
-        target={isExternal ? '_blank' : undefined}
-        rel={isExternal ? 'noopener noreferrer' : undefined}
-        className="guide-link"
-      >
-        {linkText}
-        {isExternal && <span className="external-icon">↗</span>}
-      </a>
-    );
-
+    segments.push({ type: 'link', content: linkText, url });
     lastIndex = match.index + match[0].length;
   }
+
+  if (lastIndex < text.length) {
+    segments.push({ type: 'text', content: text.substring(lastIndex) });
+  }
+
+  // Process segments
+  const result: React.ReactNode[] = [];
+  
+  segments.forEach((segment) => {
+    if (segment.type === 'link') {
+      const isExternal = segment.url!.startsWith('http');
+      result.push(
+        <a
+          key={`link-${keyCounter++}`}
+          href={segment.url}
+          target={isExternal ? '_blank' : undefined}
+          rel={isExternal ? 'noopener noreferrer' : undefined}
+          className="guide-link"
+        >
+          {segment.content}
+          {isExternal && <span className="external-icon">↗</span>}
+        </a>
+      );
+    } else {
+      // Process text for vocabulary terms
+      const processedText = processTextForVocabulary(segment.content, keyCounter);
+      result.push(...processedText);
+      keyCounter += 100; // Increment to avoid key conflicts
+    }
+  });
+
+  return result.length > 0 ? result : text;
+}
+
+function processTextForVocabulary(text: string, baseKey: number): React.ReactNode[] {
+  const parts: React.ReactNode[] = [];
+  let lastIndex = 0;
+  let keyIndex = baseKey;
+
+  // Sort terms by length (longest first) to match longer terms first
+  const sortedTerms = [...vocabularyTerms].sort((a, b) => {
+    const aMain = a.term.split('(')[0].trim();
+    const bMain = b.term.split('(')[0].trim();
+    return bMain.length - aMain.length;
+  });
+
+  const matches: Array<{ term: typeof vocabularyTerms[0]; index: number; length: number; matchedText: string }> = [];
+  const usedRanges: Array<{ start: number; end: number }> = [];
+
+  // Find all matches
+  sortedTerms.forEach((vocabTerm) => {
+    const variations = [
+      vocabTerm.term,
+      vocabTerm.term.split('(')[0].trim()
+    ];
+
+    variations.forEach((variation) => {
+      const escaped = variation.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      const regex = new RegExp(`\\b${escaped}\\b`, 'gi');
+      let match;
+      
+      while ((match = regex.exec(text)) !== null) {
+        const start = match.index;
+        const end = start + match[0].length;
+        
+        // Check if this range overlaps with existing matches
+        const overlaps = usedRanges.some(range => 
+          (start < range.end && end > range.start)
+        );
+        
+        if (!overlaps) {
+          matches.push({ 
+            term: vocabTerm, 
+            index: start, 
+            length: match[0].length,
+            matchedText: match[0]
+          });
+          usedRanges.push({ start, end });
+        }
+      }
+    });
+  });
+
+  // Sort matches by index
+  matches.sort((a, b) => a.index - b.index);
+
+  // Build result
+  matches.forEach((match) => {
+    if (match.index > lastIndex) {
+      parts.push(text.substring(lastIndex, match.index));
+    }
+    parts.push(
+      <VocabularyTooltip
+        key={`vocab-${keyIndex++}`}
+        term={match.matchedText}
+        definition={match.term.definition}
+      />
+    );
+    lastIndex = match.index + match.length;
+  });
 
   if (lastIndex < text.length) {
     parts.push(text.substring(lastIndex));
   }
 
-  return parts.length > 0 ? parts : text;
+  return parts.length > 0 ? parts : [text];
 }
 
 export function GuidePage() {

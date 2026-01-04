@@ -1,6 +1,8 @@
 import { Link } from 'react-router-dom';
 import { platforms } from '../data/guides';
 
+const base = import.meta.env.BASE_URL;
+
 export function HomePage() {
   return (
     <>
@@ -45,7 +47,13 @@ export function HomePage() {
           <div>2FA</div>
         </Link>
         <Link to="/vocabulaire">
-          <div>📚 Vocab</div>
+          <div>
+            <img
+              src={`${base}icons/vocab.png`}
+              alt="Vocabulary Icon"
+              title="Vocabulary"
+            />
+          </div>
         </Link>
       </div>
       <div className="home-footer">
