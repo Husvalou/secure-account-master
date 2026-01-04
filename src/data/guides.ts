@@ -1,25 +1,27 @@
 import { Guide, Platform } from '../types/guide';
 
+const base = import.meta.env.BASE_URL;
+
 export const platforms: Platform[] = [
-  { id: 'minecraft', name: 'Minecraft', icon: '/icons/minecraft.png', iconWidth: 32 },
-  { id: 'discord', name: 'Discord', icon: '/icons/discord.png', iconWidth: 32 },
-  { id: 'steam', name: 'Steam', icon: '/icons/steam.png', iconWidth: 32 },
-  { id: 'twitter', name: 'Twitter', icon: '/icons/twitter.png', iconWidth: 42 },
-  { id: 'playstation', name: 'Playstation', icon: '/icons/playstation.png', iconWidth: 32 },
-  { id: 'instagram', name: 'Instagram', icon: '/icons/instagram.png', iconWidth: 32 },
-  { id: 'twitch', name: 'Twitch', icon: '/icons/twitch.png', iconWidth: 32 },
-  { id: 'valorant', name: 'Valorant', icon: '/icons/valorant.png', iconWidth: 42 },
-  { id: 'epic', name: 'Fortnite', icon: '/icons/epic.png', iconWidth: 32 },
-  { id: 'kick', name: 'Kick', icon: '/icons/kick.png', iconWidth: 32 },
-  { id: 'tiktok', name: 'TikTok', icon: '/icons/tiktok.png', iconWidth: 42 },
-  { id: 'snapchat', name: 'Snapchat', icon: '/icons/snapchat.png', iconWidth: 42 },
+  { id: 'minecraft', name: 'Minecraft', icon: `${base}icons/minecraft.png`, iconWidth: 32 },
+  { id: 'discord', name: 'Discord', icon: `${base}icons/discord.png`, iconWidth: 32 },
+  { id: 'steam', name: 'Steam', icon: `${base}icons/steam.png`, iconWidth: 32 },
+  { id: 'twitter', name: 'Twitter', icon: `${base}icons/twitter.png`, iconWidth: 42 },
+  { id: 'playstation', name: 'Playstation', icon: `${base}icons/playstation.png`, iconWidth: 32 },
+  { id: 'instagram', name: 'Instagram', icon: `${base}icons/instagram.png`, iconWidth: 32 },
+  { id: 'twitch', name: 'Twitch', icon: `${base}icons/twitch.png`, iconWidth: 32 },
+  { id: 'valorant', name: 'Valorant', icon: `${base}icons/valorant.png`, iconWidth: 42 },
+  { id: 'epic', name: 'Fortnite', icon: `${base}icons/epic.png`, iconWidth: 32 },
+  { id: 'kick', name: 'Kick', icon: `${base}icons/kick.png`, iconWidth: 32 },
+  { id: 'tiktok', name: 'TikTok', icon: `${base}icons/tiktok.png`, iconWidth: 42 },
+  { id: 'snapchat', name: 'Snapchat', icon: `${base}icons/snapchat.png`, iconWidth: 42 },
 ];
 
 export const guides: Record<string, Guide> = {
   minecraft: {
     id: 'minecraft',
     name: 'Minecraft',
-    icon: '/icons/minecraft.png',
+    icon: `${base}icons/minecraft.png`,
     description: 'A Minecraft account securing guide. Get better account security to make sure your accounts don\'t get stolen!',
     steps: [
       {
@@ -105,7 +107,7 @@ export const guides: Record<string, Guide> = {
   discord: {
     id: 'discord',
     name: 'Discord',
-    icon: '/icons/discord.png',
+    icon: `${base}icons/discord.png`,
     description: 'A Discord account securing guide. Get better account security to make sure your accounts don\'t get stolen!',
     steps: [
       {
@@ -169,7 +171,7 @@ export const guides: Record<string, Guide> = {
   steam: {
     id: 'steam',
     name: 'Steam',
-    icon: '/icons/steam.png',
+    icon: `${base}icons/steam.png`,
     description: 'A Steam account securing guide. Get better account security to make sure your accounts don\'t get stolen!',
     steps: [
       {
@@ -226,7 +228,7 @@ export const guides: Record<string, Guide> = {
   twitter: {
     id: 'twitter',
     name: 'Twitter',
-    icon: '/icons/twitter.png',
+    icon: `${base}icons/twitter.png`,
     iconWidth: 42,
     description: 'A Twitter account securing guide. Get better account security to make sure your accounts don\'t get stolen!',
     steps: [
@@ -284,7 +286,7 @@ export const guides: Record<string, Guide> = {
   playstation: {
     id: 'playstation',
     name: 'Playstation',
-    icon: '/icons/playstation.png',
+    icon: `${base}icons/playstation.png`,
     description: 'A Playstation account securing guide. Get better account security to make sure your accounts don\'t get stolen!',
     steps: [
       {
@@ -348,7 +350,7 @@ export const guides: Record<string, Guide> = {
   instagram: {
     id: 'instagram',
     name: 'Instagram',
-    icon: '/icons/instagram.png',
+    icon: `${base}icons/instagram.png`,
     description: 'An Instagram account securing guide. Get better account security to make sure your accounts don\'t get stolen!',
     steps: [
       {
@@ -405,7 +407,7 @@ export const guides: Record<string, Guide> = {
   twitch: {
     id: 'twitch',
     name: 'Twitch',
-    icon: '/icons/twitch.png',
+    icon: `${base}icons/twitch.png`,
     description: 'A Twitch account securing guide. Get better account security to make sure your accounts don\'t get stolen!',
     steps: [
       {
@@ -448,7 +450,7 @@ export const guides: Record<string, Guide> = {
   valorant: {
     id: 'valorant',
     name: 'Valorant',
-    icon: '/icons/valorant.png',
+    icon: `${base}icons/valorant.png`,
     iconWidth: 42,
     description: 'A Valorant account securing guide. Get better account security to make sure your accounts don\'t get stolen!',
     steps: [
@@ -499,7 +501,7 @@ export const guides: Record<string, Guide> = {
   epic: {
     id: 'epic',
     name: 'Fortnite / Epic',
-    icon: '/icons/epic.png',
+    icon: `${base}icons/epic.png`,
     description: 'A Fortnite/Epic account securing guide. Get better account security to make sure your accounts don\'t get stolen!',
     steps: [
       {
@@ -542,7 +544,7 @@ export const guides: Record<string, Guide> = {
   kick: {
     id: 'kick',
     name: 'Kick',
-    icon: '/icons/kick.png',
+    icon: `${base}icons/kick.png`,
     description: 'A Kick account securing guide. Get better account security to make sure your accounts don\'t get stolen!',
     steps: [
       {
@@ -585,7 +587,7 @@ export const guides: Record<string, Guide> = {
   tiktok: {
     id: 'tiktok',
     name: 'TikTok',
-    icon: '/icons/tiktok.png',
+    icon: `${base}icons/tiktok.png`,
     iconWidth: 42,
     description: 'A TikTok account securing guide. Get better account security to make sure your accounts don\'t get stolen!',
     steps: [
@@ -629,7 +631,7 @@ export const guides: Record<string, Guide> = {
   snapchat: {
     id: 'snapchat',
     name: 'Snapchat',
-    icon: '/icons/snapchat.png',
+    icon: `${base}icons/snapchat.png`,
     iconWidth: 42,
     description: 'A Snapchat account securing guide. Get better account security to make sure your accounts don\'t get stolen!',
     steps: [

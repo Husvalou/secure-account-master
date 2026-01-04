@@ -44,6 +44,9 @@ export function HomePage() {
         <Link to="/2fa">
           <div>2FA</div>
         </Link>
+        <Link to="/vocabulaire">
+          <div>📚 Vocab</div>
+        </Link>
       </div>
       <div className="home-footer">
         <span className="footer-icon">🔒</span>
