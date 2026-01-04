@@ -40,6 +40,16 @@ export function Layout() {
       <div className="container">
         <Outlet />
       </div>
+      <footer className="site-footer">
+        <a 
+          href="https://github.com/Husvalou" 
+          target="_blank" 
+          rel="noopener noreferrer"
+          className="footer-link"
+        >
+          made by hus
+        </a>
+      </footer>
     </div>
   );
 }
