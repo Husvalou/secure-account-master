@@ -1471,6 +1471,10 @@ h3 {
 .pages a:nth-child(10) > div { animation: fadeInScale 0.4s ease-out 0.5s both; }
 .pages a:nth-child(11) > div { animation: fadeInScale 0.4s ease-out 0.55s both; }
 .pages a:nth-child(12) > div { animation: fadeInScale 0.4s ease-out 0.6s both; }
+.pages a:nth-child(13) { 
+  grid-column-start: 2;
+  animation: fadeInScale 0.4s ease-out 0.65s both;
+}
 .pages a:nth-child(13) > div { animation: fadeInScale 0.4s ease-out 0.65s both; }
 .pages a:nth-child(14) > div { animation: fadeInScale 0.4s ease-out 0.7s both; }
 
